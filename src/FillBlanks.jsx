@@ -28,8 +28,13 @@ function FillInTheBlank({ verbs }) {
     } else {
       setFeedback('Incorrect! Try again.');
       setLives(lives - 1);
+      // Vibrate if supported and triggered by user action
       if (navigator.vibrate) {
-        navigator.vibrate(200); // Vibrates for 200ms
+        setTimeout(() => navigator.vibrate([300, 100, 300]), 0);
+      } else {
+        // Fallback for iOS: add a shake effect
+        document.body.classList.add('shake');
+        setTimeout(() => document.body.classList.remove('shake'), 300);
       }
     }
   };
