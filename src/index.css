@@ -1,11 +1,12 @@
 :root {
-  --primary-color: #005bbb; /* Accessible blue */
-  --primary-hover: #004799;
-  --text-color: #212121; /* Darker text for better contrast */
-  --bg-light: #ffffff;
-  --bg-paper: #f5f5f5; /* Softer background for cards */
-  --button-bg: #005bbb;
-  --button-text: #ffffff;
+  --primary-color: #222222; /* Deep black for strong contrast */
+  --primary-hover: #444444; /* Slightly lighter black for hover */
+  --text-color: #1a1a1a; /* Rich black for high readability */
+  --bg-light: #faf8f5; /* Soft off-white, mimicking notebook paper */
+  --bg-paper: #eae4dc; /* Taupe-like paper background */
+  --button-bg: #1a1a1a; /* Dark buttons for contrast */
+  --button-text: #ffffff; /* White text for easy reading */
+  --border-color: #bfb8ae; /* Subtle taupe borders for structure */
 
   font-family: 'Source Sans Pro', 'Arial', sans-serif;
   font-size: 18px; /* Slightly larger for accessibility */

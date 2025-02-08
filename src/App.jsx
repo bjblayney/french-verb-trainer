@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid2';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
+import FillInTheBlank from './FillBlanks';
+
 const verbs = [
   {
     infinitive: 'manger',
@@ -203,73 +205,6 @@ function InputConjugation({ currentVerb, onCheck, onNext, lives, progress, feedb
   );
 }
 
-function FillInTheBlank({ currentVerb, onCheck, lives, progress, feedback }) {
-  const [options, setOptions] = useState([]);
-  const [selectedOption, setSelectedOption] = useState(null);
-
-  const handleCheck = () => {
-    const correctAnswer = currentVerb.answer;
-    onCheck(selectedOption === correctAnswer);
-  };
-
-  useEffect(() => {
-    const shuffledOptions = [...new Set(Object.values(currentVerb.conjugations.present)), 'Bricoler', 'Ébouriffant'].sort(() => Math.random() - 0.5);
-    setOptions(shuffledOptions);
-  }, [currentVerb]);
-
-  return (
-    <>
-      <AppBar position="fixed" sx={{ top: 0, bottom: 'auto' }}>
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <Typography variant="body1">texte à trous</Typography>
-          <Box>
-            {Array.from({ length: lives }).map((_, i) => (
-              <FavoriteIcon key={i} color="inherit" sx={{ fontSize: `.9rem` }} />
-            ))}
-          </Box>
-        </Toolbar>
-      </AppBar>
-
-      <Box
-        sx={{ textAlign: `center`, display: `flex`, flexDirection: `column`, justifyContent: `space-between`, height: `calc(100vh - 200px)` }}
-        mt={'80px'}
-        mb={2}
-      >
-        <LinearProgress variant="determinate" value={progress} sx={{ mt: 2 }} />
-        <Typography variant="h3" sx={{ mt: 1 }}>
-          {currentVerb.sentence.replace('_____', '_____')}
-        </Typography>
-
-        <Grid container spacing={2} justifyContent="center">
-          {options.map((option, index) => (
-            <Grid key={index}>
-              <Button variant={selectedOption === option ? 'contained' : 'outlined'} onClick={() => setSelectedOption(option)}>
-                {option}
-              </Button>
-            </Grid>
-          ))}
-        </Grid>
-
-        <Box sx={{ textAlign: `center` }} mt={2}>
-          <Typography variant="body1" sx={{ mt: 1 }}>
-            {feedback ? feedback : 'You got this!'}
-          </Typography>
-        </Box>
-      </Box>
-
-      <AppBar position="fixed" color="transparent" sx={{ top: 'auto', bottom: 0 }}>
-        <Toolbar>
-          <Box sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-            <Button variant="text" color="#fff" onClick={handleCheck} disabled={!selectedOption}>
-              Check Answer
-            </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
-    </>
-  );
-}
-
 function FrenchVerbGame() {
   const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -311,27 +246,6 @@ function FrenchVerbGame() {
     }
   };
 
-  const checkFillInBlank = (isCorrect) => {
-    if (isCorrect) {
-      setFeedback('Correct! Well done!');
-      nextVerb();
-    } else {
-      setFeedback('Incorrect! Try again.');
-      setLives(lives - 1);
-    }
-  };
-
-  const nextVerb = () => {
-    setProgress(((currentVerbIndex + 1) / verbs.length) * 100);
-    if (currentVerbIndex < verbs.length - 1) {
-      setCurrentVerbIndex(currentVerbIndex + 1);
-    } else {
-      setSelectedGame(null); // Go back to game selection
-    }
-    setAnswers({});
-    setFeedback(null);
-  };
-
   if (!selectedGame) {
     return (
       <Container maxWidth="sm" sx={{ textAlign: `center` }}>
@@ -362,9 +276,7 @@ function FrenchVerbGame() {
           handleInputChange={handleInputChange}
         />
       )}
-      {selectedGame === 'fillBlank' && (
-        <FillInTheBlank currentVerb={currentVerb} onCheck={checkFillInBlank} lives={lives} progress={progress} feedback={feedback} />
-      )}
+      {selectedGame === 'fillBlank' && <FillInTheBlank verbs={verbs} />}
     </Container>
   );
 }

@@ -4,26 +4,27 @@ const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#005bbb', // Accessible blue
-      light: '#0073e6',
-      dark: '#004799',
-      contrastText: '#ffffff',
+      main: '#222222', // Strong black for primary elements
+      light: '#444444', // Lighter black for subtle highlights
+      dark: '#111111', // Deep black for depth
+      contrastText: '#ffffff', // White text for high contrast
     },
     secondary: {
-      main: '#ff6f00', // Orange for contrast
+      main: '#bfb8ae', // Taupe accent for warmth
     },
     background: {
-      default: '#ffffff',
-      paper: '#f5f5f5',
+      default: '#faf8f5', // Off-white, mimicking paper
+      paper: '#eae4dc', // Slightly darker taupe for cards
     },
     text: {
-      primary: '#212121',
-      secondary: '#424242',
+      primary: '#1a1a1a', // High-contrast black
+      secondary: '#424242', // Softer dark grey
     },
+    divider: '#bfb8ae', // Taupe-colored dividers for subtle separation
   },
   typography: {
     fontFamily: "'Source Sans Pro', 'Arial', sans-serif",
-    fontSize: 18, // Larger base font size
+    fontSize: 16, // Larger base font size
     lineHeight: 1.75,
     h1: {
       fontSize: '2.2rem',
@@ -37,6 +38,7 @@ const theme = createTheme({
       fontSize: '1.5rem',
       fontWeight: 600,
     },
+    body1: { fontSize: '1rem', lineHeight: 1.6 },
     button: {
       fontSize: '1.1rem',
       fontWeight: 600,
@@ -51,7 +53,7 @@ const theme = createTheme({
           padding: '0.8em 1.5em',
           minHeight: '44px', // WCAG guideline for touch targets
           '&:hover': {
-            backgroundColor: '#004799',
+            backgroundColor: '#bfb8ae',
             transform: 'translateY(-2px)',
           },
         },
