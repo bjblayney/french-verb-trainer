@@ -9,7 +9,10 @@ const EndGameScreen = ({ progress, stats, lives, setSelectedGame }) => {
     const filledBlocks = Math.round((stats.accuracy / 100) * totalBlocks);
     const emojiBar = '🔵'.repeat(filledBlocks) + '⚪'.repeat(totalBlocks - filledBlocks);
 
-    return `🎯 Précision : ${stats.accuracy}%\n${emojiBar}\n📖 Verbes: ${stats.verbsCompleted}/${stats.totalVerbs}\n❤️ Vies: ${lives}\nEssayez ici: [Lien du jeu]`;
+    // Include the game URL dynamically
+    const gameUrl = window.location.href; // Get the current URL of the game
+
+    return `🎯 Précision : ${stats.accuracy}%\n${emojiBar}\n📖 Verbes: ${stats.verbsCompleted}/${stats.totalVerbs}\n❤️ Vies: ${lives}\nLien au jeu: ${gameUrl}`;
   };
 
   const handleShare = () => {
@@ -21,7 +24,7 @@ const EndGameScreen = ({ progress, stats, lives, setSelectedGame }) => {
         .share({
           title: 'Mon jeu de verbes',
           text: shareText,
-          url: window.location.href, // Optionally, share the current URL of the game
+          //   url: window.location.href, // Optionally, share the current URL of the game
         })
         .then(() => setSnackbarOpen(true)) // Feedback after share
         .catch((error) => console.error('Error sharing:', error));
