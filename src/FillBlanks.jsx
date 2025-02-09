@@ -8,8 +8,12 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
   const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
+
   const [feedback, setFeedback] = useState(null);
   const [progress, setProgress] = useState(0);
+
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [totalAttempts, setTotalAttempts] = useState(0);
   const [lives, setLives] = useState(5);
   const [gameOver, setGameOver] = useState(false);
 
@@ -23,14 +27,17 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
 
   const feedbackMessages = {
     Bricoler:
-      '🔧 Bricoler – Faire de petits travaux manuels ou des réparations avec les moyens du bord. (Exemple : Il aime bricoler des meubles en bois.)',
-    Ébouriffant: '😲 Ébouriffant – Très surprenant, impressionnant ou extraordinaire. (Exemple : Son spectacle était ébouriffant !)',
+      'Incorrect 🔧 Bricoler – Faire de petits travaux manuels ou des réparations avec les moyens du bord. (Exemple : Il aime bricoler des meubles en bois.)',
+    Ébouriffant: 'Incorrect 😲 Ébouriffant – Très surprenant, impressionnant ou extraordinaire. (Exemple : Son spectacle était ébouriffant !)',
     Observer:
-      '👀 Observer – Regarder attentivement pour mieux comprendre ou analyser. (Exemple : Le scientifique observe les étoiles avec un télescope.)',
+      'Incorrect 👀 Observer – Regarder attentivement pour mieux comprendre ou analyser. (Exemple : Le scientifique observe les étoiles avec un télescope.)',
   };
 
   const onCheck = (isCorrect) => {
+    setTotalAttempts(totalAttempts + 1);
+
     if (isCorrect) {
+      setCorrectAnswers(correctAnswers + 1);
       setFeedback('Correct ! Bien joué !');
       nextVerb();
       setSelectedOption(null);
@@ -66,7 +73,7 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
   const stats = {
     verbsCompleted: currentVerbIndex + 1,
     totalVerbs: verbs.length,
-    accuracy: Math.random() * 100, // Example: Random accuracy for demonstration
+    accuracy: totalAttempts > 0 ? ((correctAnswers / totalAttempts) * 100).toFixed(2) : 0,
   };
 
   useEffect(() => {
@@ -85,7 +92,7 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
             <div>Progression : {progress}%</div>
             <div>Verbes terminés : {stats.verbsCompleted}</div>
             <div>Total des verbes : {stats.totalVerbs}</div>
-            <div>Précision : {stats.accuracy.toFixed(2)}%</div>
+            <div>Précision : {stats.accuracy}%</div>
             <div>Lives : {lives}</div>
           </Box>
           <Button variant="contained" onClick={() => setSelectedGame(null)}>
