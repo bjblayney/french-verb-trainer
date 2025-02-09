@@ -38,126 +38,126 @@ const verbs = [
     sentence: 'Nous _____ français.',
     answer: 'parlons',
   },
-  {
-    infinitive: 'finir',
-    conjugations: {
-      present: {
-        je: 'finis',
-        tu: 'finis',
-        'il/elle': 'finit',
-        nous: 'finissons',
-        vous: 'finissez',
-        'elles/ils': 'finissent',
-      },
-    },
-    sentence: 'Ils _____ leurs devoirs.',
-    answer: 'finissent',
-  },
-  {
-    infinitive: 'choisir',
-    conjugations: {
-      present: {
-        je: 'choisis',
-        tu: 'choisis',
-        'il/elle': 'choisit',
-        nous: 'choisissons',
-        vous: 'choisissez',
-        'elles/ils': 'choisissent',
-      },
-    },
-    sentence: 'Vous _____ un livre.',
-    answer: 'choisissez',
-  },
-  {
-    infinitive: 'être',
-    conjugations: {
-      present: {
-        je: 'suis',
-        tu: 'es',
-        'il/elle': 'est',
-        nous: 'sommes',
-        vous: 'êtes',
-        'elles/ils': 'sont',
-      },
-    },
-    sentence: 'Tu _____ très intelligent.',
-    answer: 'es',
-  },
-  {
-    infinitive: 'avoir',
-    conjugations: {
-      present: {
-        je: 'ai',
-        tu: 'as',
-        'il/elle': 'a',
-        nous: 'avons',
-        vous: 'avez',
-        'elles/ils': 'ont',
-      },
-    },
-    sentence: 'Elle _____ un chat noir.',
-    answer: 'a',
-  },
-  {
-    infinitive: 'aller',
-    conjugations: {
-      present: {
-        je: 'vais',
-        tu: 'vas',
-        'il/elle': 'va',
-        nous: 'allons',
-        vous: 'allez',
-        'elles/ils': 'vont',
-      },
-    },
-    sentence: 'Nous _____ à la plage.',
-    answer: 'allons',
-  },
-  {
-    infinitive: 'prendre',
-    conjugations: {
-      present: {
-        je: 'prends',
-        tu: 'prends',
-        'il/elle': 'prend',
-        nous: 'prenons',
-        vous: 'prenez',
-        'elles/ils': 'prennent',
-      },
-    },
-    sentence: 'Je _____ un café chaque matin.',
-    answer: 'prends',
-  },
-  {
-    infinitive: 'venir',
-    conjugations: {
-      present: {
-        je: 'viens',
-        tu: 'viens',
-        'il/elle': 'vient',
-        nous: 'venons',
-        vous: 'venez',
-        'elles/ils': 'viennent',
-      },
-    },
-    sentence: 'Ils _____ de Paris.',
-    answer: 'viennent',
-  },
-  {
-    infinitive: 'faire',
-    conjugations: {
-      present: {
-        je: 'fais',
-        tu: 'fais',
-        'il/elle': 'fait',
-        nous: 'faisons',
-        vous: 'faites',
-        'elles/ils': 'font',
-      },
-    },
-    sentence: 'Nous _____ du sport tous les jours.',
-    answer: 'faisons',
-  },
+  // {
+  //   infinitive: 'finir',
+  //   conjugations: {
+  //     present: {
+  //       je: 'finis',
+  //       tu: 'finis',
+  //       'il/elle': 'finit',
+  //       nous: 'finissons',
+  //       vous: 'finissez',
+  //       'elles/ils': 'finissent',
+  //     },
+  //   },
+  //   sentence: 'Ils _____ leurs devoirs.',
+  //   answer: 'finissent',
+  // },
+  // {
+  //   infinitive: 'choisir',
+  //   conjugations: {
+  //     present: {
+  //       je: 'choisis',
+  //       tu: 'choisis',
+  //       'il/elle': 'choisit',
+  //       nous: 'choisissons',
+  //       vous: 'choisissez',
+  //       'elles/ils': 'choisissent',
+  //     },
+  //   },
+  //   sentence: 'Vous _____ un livre.',
+  //   answer: 'choisissez',
+  // },
+  // {
+  //   infinitive: 'être',
+  //   conjugations: {
+  //     present: {
+  //       je: 'suis',
+  //       tu: 'es',
+  //       'il/elle': 'est',
+  //       nous: 'sommes',
+  //       vous: 'êtes',
+  //       'elles/ils': 'sont',
+  //     },
+  //   },
+  //   sentence: 'Tu _____ très intelligent.',
+  //   answer: 'es',
+  // },
+  // {
+  //   infinitive: 'avoir',
+  //   conjugations: {
+  //     present: {
+  //       je: 'ai',
+  //       tu: 'as',
+  //       'il/elle': 'a',
+  //       nous: 'avons',
+  //       vous: 'avez',
+  //       'elles/ils': 'ont',
+  //     },
+  //   },
+  //   sentence: 'Elle _____ un chat noir.',
+  //   answer: 'a',
+  // },
+  // {
+  //   infinitive: 'aller',
+  //   conjugations: {
+  //     present: {
+  //       je: 'vais',
+  //       tu: 'vas',
+  //       'il/elle': 'va',
+  //       nous: 'allons',
+  //       vous: 'allez',
+  //       'elles/ils': 'vont',
+  //     },
+  //   },
+  //   sentence: 'Nous _____ à la plage.',
+  //   answer: 'allons',
+  // },
+  // {
+  //   infinitive: 'prendre',
+  //   conjugations: {
+  //     present: {
+  //       je: 'prends',
+  //       tu: 'prends',
+  //       'il/elle': 'prend',
+  //       nous: 'prenons',
+  //       vous: 'prenez',
+  //       'elles/ils': 'prennent',
+  //     },
+  //   },
+  //   sentence: 'Je _____ un café chaque matin.',
+  //   answer: 'prends',
+  // },
+  // {
+  //   infinitive: 'venir',
+  //   conjugations: {
+  //     present: {
+  //       je: 'viens',
+  //       tu: 'viens',
+  //       'il/elle': 'vient',
+  //       nous: 'venons',
+  //       vous: 'venez',
+  //       'elles/ils': 'viennent',
+  //     },
+  //   },
+  //   sentence: 'Ils _____ de Paris.',
+  //   answer: 'viennent',
+  // },
+  // {
+  //   infinitive: 'faire',
+  //   conjugations: {
+  //     present: {
+  //       je: 'fais',
+  //       tu: 'fais',
+  //       'il/elle': 'fait',
+  //       nous: 'faisons',
+  //       vous: 'faites',
+  //       'elles/ils': 'font',
+  //     },
+  //   },
+  //   sentence: 'Nous _____ du sport tous les jours.',
+  //   answer: 'faisons',
+  // },
 ];
 
 function FrenchVerbGame() {

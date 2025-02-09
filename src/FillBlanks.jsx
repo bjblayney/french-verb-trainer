@@ -3,6 +3,7 @@ import { Button, LinearProgress, Typography, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { motion } from 'framer-motion';
+import EndGameScreen from './EndGame';
 
 function FillInTheBlank({ verbs, setSelectedGame }) {
   const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
@@ -86,19 +87,20 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
   return (
     <>
       {gameOver ? (
-        <Box sx={{ textAlign: `center`, display: `flex`, flexDirection: `column`, justifyContent: `space-between`, height: `calc(100vh - 200px)` }}>
-          <h1>Tâche terminée !</h1>
-          <Box>
-            <div>📊 Progression : {progress}%</div>
-            <div>✅ Verbes terminés : {stats.verbsCompleted}</div>
-            <div>📖 Total des verbes : {stats.totalVerbs}</div>
-            <div>🎯 Précision : {stats.accuracy}%</div>
-            <div>❤️ Lives : {lives}</div>
-          </Box>
-          <Button variant="contained" onClick={() => setSelectedGame(null)}>
-            Retour au menu
-          </Button>
-        </Box>
+        // <Box sx={{ textAlign: `center`, display: `flex`, flexDirection: `column`, justifyContent: `space-between`, height: `calc(100vh - 200px)` }}>
+        //   <h1>Tâche terminée !</h1>
+        //   <Box>
+        //     <div>📊 Progression : {progress}%</div>
+        //     <div>✅ Verbes terminés : {stats.verbsCompleted}</div>
+        //     <div>📖 Total des verbes : {stats.totalVerbs}</div>
+        //     <div>🎯 Précision : {stats.accuracy}%</div>
+        //     <div>❤️ Lives : {lives}</div>
+        //   </Box>
+        //   <Button variant="contained" onClick={() => setSelectedGame(null)}>
+        //     Retour au menu
+        //   </Button>
+        // </Box>
+        <EndGameScreen progress={progress} stats={stats} lives={lives} setSelectedGame={setSelectedGame} />
       ) : (
         <>
           <Box mb={3}>
