@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button, LinearProgress, Typography, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
-
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { motion } from 'framer-motion';
 
 function FillInTheBlank({ verbs, setSelectedGame }) {
   const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
@@ -123,15 +123,30 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
           </Box>
 
           <Box sx={{ textAlign: `center`, display: `flex`, flexDirection: `column`, justifyContent: `space-between`, height: `calc(100vh - 200px)` }}>
-            <Typography variant="h3">{currentVerb.sentence.replace('_____', selectedOption || '_____')}</Typography>
+            <motion.div
+              key={currentVerb.sentence} // Ensures animation triggers when content changes
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Typography variant="h3">{currentVerb.sentence.replace('_____', selectedOption || '_____')}</Typography>
+            </motion.div>
 
             <Grid container spacing={2} justifyContent="center">
               {options.map((option, index) => (
-                <Grid key={index}>
-                  <Button variant={selectedOption === option ? 'contained' : 'outlined'} size="small" onClick={() => setSelectedOption(option)}>
-                    {option}
-                  </Button>
-                </Grid>
+                <motion.div
+                  key={option}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.3 }}
+                >
+                  <Grid key={index}>
+                    <Button variant={selectedOption === option ? 'contained' : 'outlined'} size="small" onClick={() => setSelectedOption(option)}>
+                      {option}
+                    </Button>
+                  </Grid>
+                </motion.div>
               ))}
             </Grid>
 
