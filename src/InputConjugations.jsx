@@ -86,11 +86,11 @@ function InputConjugation({ verbs, setSelectedGame }) {
         <Box sx={{ textAlign: `center`, display: `flex`, flexDirection: `column`, justifyContent: `space-between`, height: `calc(100vh - 200px)` }}>
           <h1>Tâche terminée !</h1>
           <Box>
-            <div>Progression : {progress}%</div>
-            <div>Verbes terminés : {stats.verbsCompleted}</div>
-            <div>Total des verbes : {stats.totalVerbs}</div>
-            <div>Précision : {stats.accuracy}%</div>
-            <div>Lives : {lives}</div>
+            <div>📊 Progression : {progress}%</div>
+            <div>✅ Verbes terminés : {stats.verbsCompleted}</div>
+            <div>📖 Total des verbes : {stats.totalVerbs}</div>
+            <div>🎯 Précision : {stats.accuracy}%</div>
+            <div>❤️ Lives : {lives}</div>
           </Box>
           <Button variant="contained" onClick={() => setSelectedGame(null)}>
             Retour au menu
