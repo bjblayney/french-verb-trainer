@@ -141,7 +141,7 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.3 }}
                 >
-                  <Grid key={index}>
+                  <Grid>
                     <Button variant={selectedOption === option ? 'contained' : 'outlined'} size="small" onClick={() => setSelectedOption(option)}>
                       {option}
                     </Button>

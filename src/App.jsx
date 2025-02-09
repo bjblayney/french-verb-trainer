@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import FillInTheBlank from './FillBlanks';
+import InputConjugation from './InputConjugations';
 
 const verbs = [
   {
@@ -13,10 +14,10 @@ const verbs = [
       present: {
         je: 'mange',
         tu: 'manges',
-        il: 'mange',
+        'il/elle': 'mange',
         nous: 'mangeons',
         vous: 'mangez',
-        ils: 'mangent',
+        'elles/ils': 'mangent',
       },
     },
     sentence: 'Je _____ une pomme.',
@@ -28,10 +29,10 @@ const verbs = [
       present: {
         je: 'parle',
         tu: 'parles',
-        il: 'parle',
+        'il/elle': 'parle',
         nous: 'parlons',
         vous: 'parlez',
-        ils: 'parlent',
+        'elles/ils': 'parlent',
       },
     },
     sentence: 'Nous _____ français.',
@@ -43,10 +44,10 @@ const verbs = [
       present: {
         je: 'finis',
         tu: 'finis',
-        il: 'finit',
+        'il/elle': 'finit',
         nous: 'finissons',
         vous: 'finissez',
-        ils: 'finissent',
+        'elles/ils': 'finissent',
       },
     },
     sentence: 'Ils _____ leurs devoirs.',
@@ -58,10 +59,10 @@ const verbs = [
       present: {
         je: 'choisis',
         tu: 'choisis',
-        il: 'choisit',
+        'il/elle': 'choisit',
         nous: 'choisissons',
         vous: 'choisissez',
-        ils: 'choisissent',
+        'elles/ils': 'choisissent',
       },
     },
     sentence: 'Vous _____ un livre.',
@@ -73,10 +74,10 @@ const verbs = [
       present: {
         je: 'suis',
         tu: 'es',
-        il: 'est',
+        'il/elle': 'est',
         nous: 'sommes',
         vous: 'êtes',
-        ils: 'sont',
+        'elles/ils': 'sont',
       },
     },
     sentence: 'Tu _____ très intelligent.',
@@ -88,10 +89,10 @@ const verbs = [
       present: {
         je: 'ai',
         tu: 'as',
-        il: 'a',
+        'il/elle': 'a',
         nous: 'avons',
         vous: 'avez',
-        ils: 'ont',
+        'elles/ils': 'ont',
       },
     },
     sentence: 'Elle _____ un chat noir.',
@@ -103,10 +104,10 @@ const verbs = [
       present: {
         je: 'vais',
         tu: 'vas',
-        il: 'va',
+        'il/elle': 'va',
         nous: 'allons',
         vous: 'allez',
-        ils: 'vont',
+        'elles/ils': 'vont',
       },
     },
     sentence: 'Nous _____ à la plage.',
@@ -118,10 +119,10 @@ const verbs = [
       present: {
         je: 'prends',
         tu: 'prends',
-        il: 'prend',
+        'il/elle': 'prend',
         nous: 'prenons',
         vous: 'prenez',
-        ils: 'prennent',
+        'elles/ils': 'prennent',
       },
     },
     sentence: 'Je _____ un café chaque matin.',
@@ -133,10 +134,10 @@ const verbs = [
       present: {
         je: 'viens',
         tu: 'viens',
-        il: 'vient',
+        'il/elle': 'vient',
         nous: 'venons',
         vous: 'venez',
-        ils: 'viennent',
+        'elles/ils': 'viennent',
       },
     },
     sentence: 'Ils _____ de Paris.',
@@ -148,10 +149,10 @@ const verbs = [
       present: {
         je: 'fais',
         tu: 'fais',
-        il: 'fait',
+        'il/elle': 'fait',
         nous: 'faisons',
         vous: 'faites',
-        ils: 'font',
+        'elles/ils': 'font',
       },
     },
     sentence: 'Nous _____ du sport tous les jours.',
@@ -159,92 +160,8 @@ const verbs = [
   },
 ];
 
-function InputConjugation({ currentVerb, onCheck, lives, progress, feedback, errors, answers, handleInputChange }) {
-  return (
-    <>
-      <Box sx={{ textAlign: `center` }} mb={2}>
-        <Typography variant="h6">
-          Conjugate: <strong>{currentVerb.infinitive}</strong>
-        </Typography>
-        <LinearProgress variant="determinate" value={progress} sx={{ mt: 2 }} />
-      </Box>
-
-      <Box sx={{ textAlign: `center` }} mb={2}>
-        {Array.from({ length: lives }).map((_, i) => (
-          <FavoriteIcon key={i} color="error" />
-        ))}
-      </Box>
-
-      <Grid container spacing={2}>
-        {Object.keys(currentVerb.conjugations.present).map((pronoun) => (
-          <Grid item xs={4} key={pronoun}>
-            <Typography>{pronoun}</Typography>
-            <TextField
-              fullWidth
-              variant="outlined"
-              error={errors[pronoun]}
-              helperText={errors[pronoun] ? 'Incorrect' : ''}
-              value={answers[pronoun] || ''}
-              onChange={(e) => handleInputChange(pronoun, e.target.value)}
-            />
-          </Grid>
-        ))}
-      </Grid>
-
-      <Box sx={{ textAlign: `center` }} mt={2}>
-        <Button variant="contained" color="primary" onClick={onCheck}>
-          Check Answers
-        </Button>
-        {feedback && (
-          <Typography variant="body1" sx={{ mt: 1 }}>
-            {feedback}
-          </Typography>
-        )}
-      </Box>
-    </>
-  );
-}
-
 function FrenchVerbGame() {
-  const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [lives, setLives] = useState(5);
-  const [answers, setAnswers] = useState({});
-  const [feedback, setFeedback] = useState(null);
-  const [errors, setErrors] = useState({});
   const [selectedGame, setSelectedGame] = useState(null);
-
-  const currentVerb = verbs[currentVerbIndex];
-
-  const handleInputChange = (pronoun, value) => {
-    setAnswers({ ...answers, [pronoun]: value });
-    setErrors({ ...errors, [pronoun]: false });
-  };
-
-  const checkConjugationAnswers = () => {
-    const correctAnswers = currentVerb.conjugations.present;
-    let allCorrect = true;
-    const newErrors = {};
-
-    for (const pronoun in correctAnswers) {
-      if (answers[pronoun]?.toLowerCase() !== correctAnswers[pronoun]) {
-        allCorrect = false;
-        newErrors[pronoun] = true;
-      } else {
-        newErrors[pronoun] = false;
-      }
-    }
-
-    setErrors(newErrors);
-
-    if (allCorrect) {
-      setFeedback('Correct! Well done!');
-      nextVerb();
-    } else {
-      setFeedback('Some answers are incorrect. Check the highlighted fields.');
-      setLives(lives - 1);
-    }
-  };
 
   if (!selectedGame) {
     return (
@@ -264,18 +181,7 @@ function FrenchVerbGame() {
 
   return (
     <Container maxWidth="sm" disableGutters>
-      {selectedGame === 'conjugation' && (
-        <InputConjugation
-          currentVerb={currentVerb}
-          onCheck={checkConjugationAnswers}
-          lives={lives}
-          progress={progress}
-          feedback={feedback}
-          errors={errors}
-          answers={answers}
-          handleInputChange={handleInputChange}
-        />
-      )}
+      {selectedGame === 'conjugation' && <InputConjugation verbs={verbs} setSelectedGame={setSelectedGame} />}
       {selectedGame === 'fillBlank' && <FillInTheBlank verbs={verbs} setSelectedGame={setSelectedGame} />}
     </Container>
   );
