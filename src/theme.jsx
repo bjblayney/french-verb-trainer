@@ -50,7 +50,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: '12px',
-          padding: '0.8em 1.5em',
+          // padding: '0.8em 1.5em',
           minHeight: '44px', // WCAG guideline for touch targets
           '&:hover': {
             backgroundColor: '#bfb8ae',

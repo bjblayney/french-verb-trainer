@@ -4,37 +4,50 @@ import Grid from '@mui/material/Grid2';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-function FillInTheBlank({ verbs }) {
+function FillInTheBlank({ verbs, setSelectedGame }) {
   const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
   const [options, setOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState(null);
   const [feedback, setFeedback] = useState(null);
   const [progress, setProgress] = useState(0);
   const [lives, setLives] = useState(5);
+  const [gameOver, setGameOver] = useState(false);
 
   const currentVerb = verbs[currentVerbIndex];
 
   const handleCheck = (event) => {
     event.target.blur();
     const correctAnswer = currentVerb.answer;
-    onCheck(selectedOption === correctAnswer);
+    onCheck(selectedOption === correctAnswer, selectedOption);
+  };
+
+  const feedbackMessages = {
+    Bricoler:
+      '🔧 Bricoler – Faire de petits travaux manuels ou des réparations avec les moyens du bord. (Exemple : Il aime bricoler des meubles en bois.)',
+    Ébouriffant: '😲 Ébouriffant – Très surprenant, impressionnant ou extraordinaire. (Exemple : Son spectacle était ébouriffant !)',
+    Observer:
+      '👀 Observer – Regarder attentivement pour mieux comprendre ou analyser. (Exemple : Le scientifique observe les étoiles avec un télescope.)',
   };
 
   const onCheck = (isCorrect) => {
     if (isCorrect) {
-      setFeedback('Correct! Well done!');
+      setFeedback('Correct ! Bien joué !');
       nextVerb();
       setSelectedOption(null);
     } else {
-      setFeedback('Incorrect! Try again.');
+      setFeedback(feedbackMessages[selectedOption] || 'Incorrect ! Essaie encore !');
       setLives(lives - 1);
       // Vibrate if supported and triggered by user action
-      if (navigator.vibrate) {
+      if ('vibrate' in navigator) {
         setTimeout(() => navigator.vibrate([300, 100, 300]), 0);
       } else {
         // Fallback for iOS: add a shake effect
         document.body.classList.add('shake');
         setTimeout(() => document.body.classList.remove('shake'), 300);
+      }
+      setSelectedOption(null);
+      if (lives === 1) {
+        setGameOver(true);
       }
     }
   };
@@ -43,50 +56,89 @@ function FillInTheBlank({ verbs }) {
     setProgress(((currentVerbIndex + 1) / verbs.length) * 100);
     if (currentVerbIndex < verbs.length - 1) {
       setCurrentVerbIndex(currentVerbIndex + 1);
+    } else {
+      setGameOver(true);
     }
     setFeedback(null);
   };
 
+  // Stats (for demonstration, adjust as necessary)
+  const stats = {
+    verbsCompleted: currentVerbIndex + 1,
+    totalVerbs: verbs.length,
+    accuracy: Math.random() * 100, // Example: Random accuracy for demonstration
+  };
+
   useEffect(() => {
-    const shuffledOptions = [...new Set(Object.values(currentVerb.conjugations.present)), 'Bricoler', 'Ébouriffant'].sort(() => Math.random() - 0.5);
+    const shuffledOptions = [...new Set(Object.values(currentVerb.conjugations.present)), 'Bricoler', 'Ébouriffant', 'Observer'].sort(
+      () => Math.random() - 0.5
+    );
     setOptions(shuffledOptions);
   }, [currentVerb]);
 
   return (
     <>
-      <Box>
-        {Array.from({ length: lives }).map((_, i) => (
-          <FavoriteIcon key={i} color="inherit" sx={{ fontSize: `.9rem` }} />
-        ))}
-        <LinearProgress variant="determinate" value={progress} />
-      </Box>
-
-      <Box
-        sx={{ textAlign: `center`, display: `flex`, flexDirection: `column`, justifyContent: `space-between`, height: `calc(100vh - 200px)` }}
-        mt={'80px'}
-        mb={2}
-      >
-        <Typography variant="h3">{currentVerb.sentence.replace('_____', selectedOption || '_____')}</Typography>
-
-        <Grid container spacing={2} justifyContent="center">
-          {options.map((option, index) => (
-            <Grid key={index}>
-              <Button variant={selectedOption === option ? 'contained' : 'outlined'} onClick={() => setSelectedOption(option)}>
-                {option}
-              </Button>
-            </Grid>
-          ))}
-        </Grid>
-
-        <Box sx={{ textAlign: `center` }}>
-          <Typography variant="body1" sx={{ mb: 2 }}>
-            {feedback ? feedback : 'You got this!'}
-          </Typography>
-          <Button variant="outlined" color="#fff" onClick={handleCheck} disabled={!selectedOption}>
-            Check Answer
+      {gameOver ? (
+        <Box sx={{ textAlign: `center`, display: `flex`, flexDirection: `column`, justifyContent: `space-between`, height: `calc(100vh - 200px)` }}>
+          <h1>Tâche terminée !</h1>
+          <Box>
+            <div>Progression : {progress}%</div>
+            <div>Verbes terminés : {stats.verbsCompleted}</div>
+            <div>Total des verbes : {stats.totalVerbs}</div>
+            <div>Précision : {stats.accuracy.toFixed(2)}%</div>
+            <div>Lives : {lives}</div>
+          </Box>
+          <Button variant="contained" onClick={() => setSelectedGame(null)}>
+            Retour au menu
           </Button>
         </Box>
-      </Box>
+      ) : (
+        <>
+          <Box mb={3}>
+            <FavoriteIcon
+              color="error"
+              sx={{
+                fontSize: `.9rem`,
+              }}
+            />
+            {Array.from({ length: lives }).map((_, i) => (
+              <FavoriteIcon
+                key={i}
+                color="error"
+                sx={{
+                  fontSize: `.9rem`,
+                  opacity: i >= lives - 1 && lives > 0 ? 0 : 1, // Fade out the last icons as lives lower
+                  transition: 'opacity 0.5s ease-out', // Apply fade-out effect
+                }}
+              />
+            ))}
+            <LinearProgress variant="determinate" value={progress} />
+          </Box>
+
+          <Box sx={{ textAlign: `center`, display: `flex`, flexDirection: `column`, justifyContent: `space-between`, height: `calc(100vh - 200px)` }}>
+            <Typography variant="h3">{currentVerb.sentence.replace('_____', selectedOption || '_____')}</Typography>
+
+            <Grid container spacing={2} justifyContent="center">
+              {options.map((option, index) => (
+                <Grid key={index}>
+                  <Button variant={selectedOption === option ? 'contained' : 'outlined'} size="small" onClick={() => setSelectedOption(option)}>
+                    {option}
+                  </Button>
+                </Grid>
+              ))}
+            </Grid>
+
+            <Box sx={{ textAlign: `center` }}>
+              <Typography variant="body1" sx={{ mb: 2 }}>
+                {feedback ? feedback : 'T’as ça !'}
+              </Typography>
+              <Button variant="outlined" sx={{ mb: 2 }} color="#fff" size="small" onClick={handleCheck} disabled={!selectedOption}>
+                Vérifie ta réponse
+              </Button>
+            </Box>
+          </Box>
+        </>
+      )}
     </>
   );
 }

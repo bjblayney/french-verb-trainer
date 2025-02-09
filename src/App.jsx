@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Container, TextField, Button, LinearProgress, Typography, Box, AppBar, Toolbar } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, TextField, Button, LinearProgress, Typography, Box } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -159,7 +159,7 @@ const verbs = [
   },
 ];
 
-function InputConjugation({ currentVerb, onCheck, onNext, lives, progress, feedback, errors, answers, handleInputChange }) {
+function InputConjugation({ currentVerb, onCheck, lives, progress, feedback, errors, answers, handleInputChange }) {
   return (
     <>
       <Box sx={{ textAlign: `center` }} mb={2}>
@@ -249,13 +249,13 @@ function FrenchVerbGame() {
   if (!selectedGame) {
     return (
       <Container maxWidth="sm" sx={{ textAlign: `center` }}>
-        <Box sx={{ textAlign: `center` }} mt={5}>
-          <Typography variant="h4">French Verb Game</Typography>
+        <Box sx={{ textAlign: `center`, display: `flex`, flexDirection: `column` }} mt={5}>
+          <Typography variant="h4">RépétitionsVerbe</Typography>
           <Button variant="contained" color="primary" sx={{ mt: 2 }} onClick={() => setSelectedGame('conjugation')}>
-            Input Conjugations
+            Conjuguer Compétence
           </Button>
-          <Button variant="contained" color="secondary" sx={{ mt: 2, ml: 2 }} onClick={() => setSelectedGame('fillBlank')}>
-            Fill in the Blank
+          <Button variant="contained" color="secondary" sx={{ mt: 2 }} onClick={() => setSelectedGame('fillBlank')}>
+            Texte à Trous
           </Button>
         </Box>
       </Container>
@@ -263,7 +263,7 @@ function FrenchVerbGame() {
   }
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" disableGutters>
       {selectedGame === 'conjugation' && (
         <InputConjugation
           currentVerb={currentVerb}
@@ -276,7 +276,7 @@ function FrenchVerbGame() {
           handleInputChange={handleInputChange}
         />
       )}
-      {selectedGame === 'fillBlank' && <FillInTheBlank verbs={verbs} />}
+      {selectedGame === 'fillBlank' && <FillInTheBlank verbs={verbs} setSelectedGame={setSelectedGame} />}
     </Container>
   );
 }
