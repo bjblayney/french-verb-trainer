@@ -12,7 +12,7 @@ const EndGameScreen = ({ progress, stats, lives, setSelectedGame }) => {
     // Include the game URL dynamically
     const gameUrl = window.location.href; // Get the current URL of the game
 
-    return `🎯 Précision : ${stats.accuracy}%\n${emojiBar}\n📖 Verbes: ${stats.verbsCompleted}/${stats.totalVerbs}\n❤️ Vies: ${lives}\nLien au jeu: ${gameUrl}`;
+    return `📖 Verbes: ${stats.verbsCompleted}/${stats.totalVerbs}\n❤️ Vies: ${lives}\n🎯 Précision : ${stats.accuracy}%\n${emojiBar}\nLien au jeu: ${gameUrl}`;
   };
 
   const handleShare = () => {
