@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid2';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { motion } from 'framer-motion';
 import EndGameScreen from './EndGame';
+import ThemeToggle from './ThemeToggle';
 
 function FillInTheBlank({ verbs, setSelectedGame }) {
   const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
@@ -104,23 +105,28 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
       ) : (
         <>
           <Box mb={3}>
-            <FavoriteIcon
-              color="error"
-              sx={{
-                fontSize: `.9rem`,
-              }}
-            />
-            {Array.from({ length: lives }).map((_, i) => (
-              <FavoriteIcon
-                key={i}
-                color="error"
-                sx={{
-                  fontSize: `.9rem`,
-                  opacity: i >= lives - 1 && lives > 0 ? 0 : 1, // Fade out the last icons as lives lower
-                  transition: 'opacity 0.5s ease-out', // Apply fade-out effect
-                }}
-              />
-            ))}
+            <Box sx={{ display: `flex`, justifyContent: `space-between`, alignItems: `center` }}>
+              <Box>
+                <FavoriteIcon
+                  color="error"
+                  sx={{
+                    fontSize: `.9rem`,
+                  }}
+                />
+                {Array.from({ length: lives }).map((_, i) => (
+                  <FavoriteIcon
+                    key={i}
+                    color="error"
+                    sx={{
+                      fontSize: `.9rem`,
+                      opacity: i >= lives - 1 && lives > 0 ? 0 : 1, // Fade out the last icons as lives lower
+                      transition: 'opacity 0.5s ease-out', // Apply fade-out effect
+                    }}
+                  />
+                ))}
+              </Box>
+              <ThemeToggle />
+            </Box>
             <LinearProgress variant="determinate" value={progress} />
           </Box>
 
