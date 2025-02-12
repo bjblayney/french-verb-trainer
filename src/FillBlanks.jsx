@@ -5,6 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { motion } from 'framer-motion';
 import EndGameScreen from './EndGame';
 import ThemeToggle from './ThemeToggle';
+import Chatbot from './ChatBot';
 
 function FillInTheBlank({ verbs, setSelectedGame }) {
   const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
@@ -167,6 +168,7 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
               </Button>
             </Box>
           </Box>
+          <Chatbot />
         </>
       )}
     </>
