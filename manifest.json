@@ -1,7 +1,7 @@
 {
   "name": "Verb Trainer",
   "short_name": "VerbTrainer",
-  "description": "Ai enabled verb trainning app",
+  "description": "AI-Powered App for Mastering Verb Conjugations",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#faf8f5",
