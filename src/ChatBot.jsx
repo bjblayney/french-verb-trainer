@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { Card, CardContent, IconButton, TextField, Typography } from '@mui/material';
-import { Send, ChatBubble, Close } from '@mui/icons-material';
+import { Send, Close } from '@mui/icons-material';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { motion } from 'framer-motion';
 
-const Chatbot = () => {
+const Chatbot = (props) => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState([{ sender: 'bot', text: 'Bonjour! Ask me about French verb conjugations.' }]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState(
+    `You are a top French Canadian language tutor, helping grade 6–8 students with verb conjugations. The verb context is ${props.currentVerb}. Provide a hint in the shortest, most concise way possible.`
+  );
 
   // Function to send message to OpenAI API
   const sendMessage = async () => {
@@ -22,7 +25,17 @@ const Chatbot = () => {
         body: JSON.stringify({ message: input }),
       });
 
-      const data = await response.json();
+      // Log the raw response to debug
+      const rawData = await response.text(); // Get raw response text
+      console.log('Raw response:', rawData);
+
+      // Check for successful response
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Try to parse JSON
+      const data = JSON.parse(rawData);
       const botReply = data.reply || 'Je ne comprends pas.';
 
       setMessages((prev) => [...prev, { sender: 'bot', text: botReply }]);
@@ -43,10 +56,13 @@ const Chatbot = () => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           whileHover={{ scale: 1.1 }}
-          onClick={() => setOpen(true)}
-          style={{ backgroundColor: '#1976d2', color: 'white', boxShadow: '2px 2px 10px rgba(0,0,0,0.2)' }}
+          onClick={() => {
+            setOpen(true);
+            sendMessage();
+          }}
+          // style={{ backgroundColor: '#1976d2', color: 'white', boxShadow: '2px 2px 10px rgba(0,0,0,0.2)' }}
         >
-          <ChatBubble />
+          <AutoAwesomeIcon />
         </IconButton>
       )}
 
@@ -54,16 +70,6 @@ const Chatbot = () => {
       {open && (
         <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: 'spring', stiffness: 200 }}>
           <Card sx={{ width: 300, maxHeight: 400, display: 'flex', flexDirection: 'column', position: 'relative' }}>
-            <IconButton
-              onClick={() => setOpen(false)}
-              sx={{
-                position: 'absolute',
-                top: 8,
-                right: 8,
-              }}
-            >
-              <Close />
-            </IconButton>
             <CardContent sx={{ flex: 1, overflowY: 'auto', paddingBottom: '10px' }}>
               {messages.map((msg, index) => (
                 <motion.div
@@ -93,7 +99,7 @@ const Chatbot = () => {
 
             {/* Input Field */}
             <div style={{ display: 'flex', padding: '10px', borderTop: '1px solid #ddd' }}>
-              <TextField
+              {/* <TextField
                 variant="outlined"
                 size="small"
                 fullWidth
@@ -104,6 +110,9 @@ const Chatbot = () => {
               />
               <IconButton color="primary" onClick={sendMessage}>
                 <Send />
+              </IconButton> */}
+              <IconButton onClick={() => setOpen(false)} fontSize="small">
+                <Close />
               </IconButton>
             </div>
           </Card>

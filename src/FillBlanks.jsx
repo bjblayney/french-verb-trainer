@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { motion } from 'framer-motion';
 import EndGameScreen from './EndGame';
 import ThemeToggle from './ThemeToggle';
-import Chatbot from './ChatBot';
+import HintBox from './HintBox';
 
 function FillInTheBlank({ verbs, setSelectedGame }) {
   const [currentVerbIndex, setCurrentVerbIndex] = useState(0);
@@ -80,6 +80,7 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
   };
 
   useEffect(() => {
+    // console.log('Current verb:', JSON.stringify(currentVerb));
     const shuffledOptions = [...new Set(Object.values(currentVerb.conjugations.present)), 'Bricoler', 'Ébouriffant', 'Observer'].sort(
       () => Math.random() - 0.5
     );
@@ -160,6 +161,7 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
             </Grid>
 
             <Box sx={{ textAlign: `center` }}>
+              <HintBox currentVerb={currentVerb} />
               <Typography variant="body1" sx={{ mb: 2 }}>
                 {feedback ? feedback : 'T’as ça !'}
               </Typography>
@@ -168,7 +170,6 @@ function FillInTheBlank({ verbs, setSelectedGame }) {
               </Button>
             </Box>
           </Box>
-          <Chatbot />
         </>
       )}
     </>
